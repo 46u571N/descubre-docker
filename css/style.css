@@ -1,0 +1,184 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #0077b6; /* Un azul Docker-like */
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 2.8em;
+    margin-bottom: 0.5em;
+}
+
+.hero-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    font-weight: 400;
+}
+
+.hero-section p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+}
+
+.hero-image {
+    max-width: 250px; /* Ajusta según tu imagen */
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Opcional */
+}
+
+/* Content Sections */
+.content-section {
+    padding: 40px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.content-section:last-child {
+    border-bottom: none;
+}
+
+.content-section.alt-bg {
+    background-color: #ffffff;
+}
+
+.content-section h2 {
+    font-size: 2em;
+    color: #005a8e; /* Azul más oscuro */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.content-section p {
+    margin-bottom: 15px;
+    font-size: 1.05em;
+}
+
+.content-section strong {
+    color: #0077b6;
+}
+
+/* Code Blocks */
+pre {
+    background-color: #2d2d2d; /* Fondo oscuro para código */
+    color: #f8f8f2; /* Texto claro */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow-x: auto; /* Para scroll horizontal si el código es muy largo */
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+code {
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* Para código inline dentro de párrafos */
+p > code, li > code {
+    background-color: #e0e0e0;
+    padding: 0.2em 0.4em;
+    margin: 0 0.2em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+
+.note {
+    background-color: #e7f5ff;
+    border-left: 4px solid #0077b6;
+    padding: 10px 15px;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+/* Diagrama */
+.diagram pre {
+    background-color: #f0f0f0;
+    color: #333;
+    text-align: center;
+    font-size: 1em;
+    border: 1px dashed #ccc;
+}
+
+/* Lista de Siguientes Pasos */
+#siguientes-pasos ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#siguientes-pasos ul li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+#siguientes-pasos ul li a {
+    text-decoration: none;
+    color: #0077b6;
+    font-weight: bold;
+}
+
+#siguientes-pasos ul li a:hover {
+    text-decoration: underline;
+}
+
+.encouragement {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #005a8e;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #f0f0f0;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+/* Responsividad simple */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+    .hero-section h2 {
+        font-size: 1.2em;
+    }
+    .content-section h2 {
+        font-size: 1.8em;
+    }
+    .hero-image {
+        max-width: 180px;
+    }
+}
