@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Docker: Empaqueta y Ejecuta Fácilmente</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png"> </head>
+<body>
+    <header class="hero-section">
+        <div class="container">
+            <h1>🚀 ¡Descubre Docker: Empaqueta y Ejecuta tu Código Fácilmente! 🐳</h1>
+            <h2>Olvídate de "en mi máquina funciona". Docker te da entornos consistentes y portátiles.</h2>
+            <img src="images/docker-hero.png" alt="Ilustración de Docker con contenedores" class="hero-image">
+            <p>
+                ¿Te has enfrentado a problemas de configuración al trabajar en diferentes proyectos o con compañeros? Docker cambia las reglas del juego. Te permite empaquetar tu aplicación y todas sus dependencias en una unidad estándar (un contenedor) para que funcione igual en cualquier lugar. ¡Es esencial para el desarrollo moderno!
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <section id="dockerfile-imagen" class="content-section">
+            <div class="container">
+                <h2>📝📸 De la Receta a la Fotografía: Dockerfile e Imagen</h2>
+                <p>
+                    Imagina que quieres hornear un pastel. Necesitas una receta, ¿verdad? El <strong>Dockerfile</strong> es esa <strong>receta</strong>. Es un archivo de texto con todas las instrucciones paso a paso que Docker necesita para "construir" algo. Le dices qué sistema base usar, qué archivos copiar, qué software instalar, etc.
+                </p>
+                <pre><code class="language-dockerfile">
+# Dockerfile super simple para una web estática
+FROM nginx:latest  # -&gt; Usa la "Imagen" base de Nginx
+COPY index.html /usr/share/nginx/html # -&gt; Copia tu archivo index.html a la ubicación correcta
+# El puerto 80 ya viene configurado en la imagen de Nginx
+# El comando para correr Nginx también viene pre-configurado
+                </code></pre>
+                <p>
+                    Una vez que Docker "ejecuta" las instrucciones del Dockerfile (como hornear el pastel), obtiene una <strong>Imagen</strong>. Piensa en la Imagen como el <strong>molde</strong> o la <strong>fotografía instantánea</strong> de tu aplicación y todo lo que necesita. Es un paquete ligero, independiente y <strong>listo para ser ejecutado</strong>. Las Imágenes no cambian (son inmutables) y puedes usarlas para crear múltiples copias (contenedores).
+                </p>
+                <pre><code class="language-bash">
+# Construye una Imagen a partir del Dockerfile en la carpeta actual
+docker build . -t mi-imagen-web-estatica
+# El '-t' le da un nombre (tag) a tu imagen para encontrarla fácilmente
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="contenedor" class="content-section alt-bg">
+            <div class="container">
+                <h2>📦💨 ¡Sirviendo el Pastel!: El Contenedor</h2>
+                <p>
+                    Si la Imagen es el molde del pastel, el <strong>Contenedor</strong> es el <strong>pastel recién horneado y servido</strong> ¡listo para comer! Es una <strong>instancia en ejecución</strong> de una Imagen. Cada Contenedor es aislado y tiene su propio sistema de archivos, procesos y red, pero <em>comparte el kernel</em> del sistema operativo anfitrión. Puedes correr muchos Contenedores a partir de la misma Imagen, ¡y todos son independientes!
+                </p>
+                <pre><code class="language-bash">
+# Ejecuta un Contenedor a partir de la Imagen 'mi-imagen-web-estatica'
+docker run -d -p 8080:80 mi-imagen-web-estatica
+# '-d' lo corre en segundo plano (detached)
+# '-p 8080:80' mapea el puerto 80 del Contenedor al puerto 8080 de tu máquina
+                </code></pre>
+                <p class="note">
+                    <strong>Nota Rápida:</strong> Cuando corres <code>docker run</code>, Docker busca la Imagen localmente. Si no la encuentra, la descarga (¡como si buscara el molde en la pastelería online!).
+                </p>
+            </div>
+        </section>
+
+        <section id="volumen" class="content-section">
+            <div class="container">
+                <h2>💾🔄 No Pierdas tus Datos: El Volumen</h2>
+                <p>
+                    Por defecto, cualquier archivo que crees o cambies <em>dentro</em> de un Contenedor se pierde cuando ese Contenedor se detiene o elimina. ¡No queremos que eso pase con datos importantes (como bases de datos, archivos de logs, o uploads de usuarios)! Aquí es donde entran los <strong>Volúmenes</strong>.
+                </p>
+                <p>
+                    Un <strong>Volumen</strong> es una forma de <strong>guardar datos <em>fuera</em> del Contenedor</strong>, en tu sistema de archivos local (o en otro lugar). Es como conectar un disco duro externo a tu Contenedor. Esto asegura que los datos persistan aunque el Contenedor cambie, se actualice o se elimine. También es útil para compartir archivos entre tu máquina y el Contenedor (como archivos de configuración o el código fuente en desarrollo).
+                </p>
+                <pre><code class="language-bash">
+# Ejemplo con web estática: Sirve archivos HTML desde tu carpeta local
+# docker run -d -p 8080:80 -v /ruta/a/tu/carpeta/web:/usr/share/nginx/html nginx:latest
+# '-v /ruta/en/tu/pc:/ruta/dentro/del/contenedor' -&gt; ¡Esto es el Volumen!
+
+# Ejemplo con script que escribe logs: Guarda los logs en tu PC
+# docker run -v /ruta/a/tu/carpeta/logs:/app/logs mi-logger-imagen
+                </code></pre>
+                <p class="note"><em>(Nota: Adaptar el ejemplo según la demo elegida para la clase)</em></p>
+            </div>
+        </section>
+
+        <section id="resumen-visual" class="content-section alt-bg">
+            <div class="container">
+                <h2>🔄 Todo Junto: El Ciclo de Vida Básico de Docker</h2>
+                <div class="diagram">
+                    <pre>
+[Dockerfile] --(comando: docker build)--> [Imagen] --(comando: docker run)--> [Contenedor]
+                                                                             ⬆️           ⬇️
+                                                                         [Tu PC] <-- [Volumen (opcional)]
+                    </pre>
+                </div>
+                <p>
+                    Escribes la receta (Dockerfile), construyes el molde (Imagen), creas y corres una instancia (Contenedor), y opcionalmente conectas almacenamiento externo (Volumen).
+                </p>
+            </div>
+        </section>
+
+        <section id="siguientes-pasos" class="content-section">
+            <div class="container">
+                <h2>🚀 ¡El Próximo Paso es Tuyo!</h2>
+                <p>
+                    Ahora que entiendes los conceptos básicos, la mejor forma de aprender es practicando.
+                </p>
+                <ul>
+                    <li>1. <a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer">Instala Docker Desktop en tu computadora.</a></li>
+                    <li>2. Intenta seguir la demo que vimos en clase. (Quizás enlazar al código o un mini-tutorial de la demo si lo tienes online)</li>
+                    <li>3. <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Explora la documentación oficial de Docker.</a></li>
+                </ul>
+                <p class="encouragement">
+                    ¡Docker abre un mundo de posibilidades para tus proyectos! ¡No dudes en experimentar!
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Descubre Docker - Maqueta Web. Contenido inspirado en conceptos de Docker.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
